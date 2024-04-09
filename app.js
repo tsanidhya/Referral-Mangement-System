@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const apiRouter = require('./apiHandler');
+const authRouter = require('./controllers/authHandler');
+const CreateDBSchemas = require('./models/DBSchemas');
+const referralRouter = require('./controllers/referralController')
 
-
-app.use(apiRouter);
+app.use(authRouter);
+app.use(referralRouter);
+CreateDBSchemas();
 
 
 app.get('/', (req, res) => {

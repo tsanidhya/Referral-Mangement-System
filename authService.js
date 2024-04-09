@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'secret-key';
 
 async function generateToken(user) {
-    //validate username and password from DB
+    //validate username and password from DB?
     let validated = true;
     if(validated)
         return jwt.sign(user, secretKey);
