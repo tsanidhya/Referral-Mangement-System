@@ -14,5 +14,27 @@ router.post('/createReferral', async (req, res) => {
   
 });
 
+router.post('/updateReferralStatus', async (req, res) => {
+    try {
+        const response = await referralService.updateReferralStatus(req.query); 
+        res.json({'Referral status' : 'updated'});
+    } catch (error) {
+        console.error('Error occurred during status update', error);
+        res.status(500).json({ error: 'An internal server error occurred' });
+    }
+  
+});
+
+router.get('/getReferrallInfo', async (req, res) => {
+    try {
+        const response = await referralService.fetchReferralData(req.query); 
+        res.json({'Data' : response});
+    } catch (error) {    
+        console.error('Error occurred while fetching referral data', error);
+        res.status(500).json({ error: 'An internal server error occurred' });
+    }
+  
+});
+
 
 module.exports = router;

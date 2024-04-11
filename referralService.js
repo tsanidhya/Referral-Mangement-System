@@ -15,15 +15,23 @@ class Referral {
             secondary_handler: 'Handler 2',
             status: 'Initiated'
         };
+
         await referralManager.createReferral(queryParams);    
     }
     async updateReferralStatus(requestObj) {
+        const queryParams = {
+            referral_id: requestObj.id,
+            status: requestObj.status
+        };
 
         await referralManager.updateReferralStatus(queryParams); 
     }
     async fetchReferralData(requestObj){
+        const queryParams = {
+            candidate_name: requestObj.name,
+        };
         
-        await referralManager.getReferralInfo(queryParams); 
+        return await referralManager.getReferralInfo(queryParams); 
 
     }
 }

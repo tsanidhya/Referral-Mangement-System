@@ -16,29 +16,35 @@ class ReferralManager{
     }
 
     async updateReferralStatus(queryParams){
-        const query = `UPDATE Referral
-                        SET status = '${queryParams}'
-                        WHERE id = ${queryParams};`
+        const query = `UPDATE referral
+                        SET status = '${queryParams.status}'
+                        WHERE id = ${queryParams.referral_id};`
         DB.query(query, (err, res) => {
             if (err) {
-              console.error('Error creating referral', err);
+              console.error('Error updating referral status', err);
             } else {
-              console.log('referral created successfully');
+              console.log('status updated successfully');
             }
         });
+        
     }
 
     async getReferralInfo(queryParams){
         const query = `SELECT r.*
         FROM Referral r
         JOIN Candidate c ON r.referree_candidate_id = c.id
-        WHERE c.name = '${queryParams}';`
-        DB.query(query, (err, res) => {
-            if (err) {
-              console.error('Error fetching referral info', err);
-            }
-            return res;
-        });
+        WHERE c.name = '${queryParams.candidate_name}';`
+        return new Promise((resolve, reject) => {
+          DB.query(query, (err, res) => {
+              if (err) {
+                  console.error('Error fetching referral info', err);
+                  reject(err);
+              } else {
+                  console.log('Referral data fetched successfully');
+                  resolve(res.rows[0]);
+              }
+          });
+      });
     }
 
 
